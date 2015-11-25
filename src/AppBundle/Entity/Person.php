@@ -74,6 +74,11 @@ class Person
     private $personDetail;
 
     /**
+     * @ORM\Column(name="ip_address", type="bigint", nullable = TRUE)
+     */
+    protected $ipAddress;
+
+    /**
      * Get id
      *
      * @return int
@@ -227,5 +232,29 @@ class Person
     public function getPersonDetail()
     {
         return $this->personDetail;
+    }
+
+    /**
+     * Set ipAddress
+     *
+     * @param integer $ipAddress
+     *
+     * @return Person
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get ipAddress
+     *
+     * @return integer
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
     }
 }

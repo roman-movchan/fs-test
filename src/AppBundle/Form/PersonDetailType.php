@@ -15,7 +15,6 @@ class PersonDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('person', 'hidden')
             ->add('iceCream')
             ->add('favSuperhero')
             ->add('favMovieStar')

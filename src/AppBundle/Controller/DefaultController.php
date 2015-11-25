@@ -39,6 +39,7 @@ class DefaultController extends Controller
         }
 
         $entity = new Person();
+        $entity->setIpAddress(ip2long($request->getClientIp()));
         $form = $this->createPersonForm($entity);
         $form->handleRequest($request);
 
@@ -154,7 +155,7 @@ class DefaultController extends Controller
         $response = new JsonResponse(
             [
                 'form' => $this->renderView('default/result.html.twig', ['img' => $res]),
-                'step' => 'final'
+                //'step' => '4'
             ], 200);
 
         return $response;
