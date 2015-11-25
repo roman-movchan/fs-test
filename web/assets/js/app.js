@@ -2,10 +2,18 @@ $(document).ready(function(){
     var count = localStorage['count'] != undefined ? localStorage['count'] : 3600;
     var step = localStorage['step'] != undefined ? localStorage['step'] : 1;
 
-    alert(step);
+    //var step= 1;
+    //alert(step);
     var counter = setInterval(timer, 100);
 
+    printForm(step, []);
+
     initAjaxForm();
+
+    $('.clearStorage').on('click', function (e) {
+        localStorage.clear();
+        clearInterval(counter);
+    });
 
     function timer()
     {
@@ -17,16 +25,29 @@ $(document).ready(function(){
         }
         count--;
         localStorage['count'] = count;
-        document.getElementById("timer").innerHTML=(count / 10).toFixed(1);
+        document.getElementById("timer").innerHTML=step+'---'+(count / 10).toFixed(1);
     }
 
-    function printForm(step)
+    function printForm(step, data)
     {
-        $.get('/step/'+step+'?id='+data.id, function(data)
+        var idParam = '';
+
+        if(data.id  != undefined ) {
+            localStorage['id'] =  data.id;
+        }
+
+        if(step == 2) {
+            data.id = localStorage['id'];
+            idParam = data.id != undefined ? '/id/'+data.id : '';
+        }
+        console.log(localStorage);
+        $.get('/step/'+step+idParam, function(data)
         {
             $('#formBlock').html(data.form);
         });
     }
+
+
 
     function initAjaxForm()
     {
@@ -40,10 +61,13 @@ $(document).ready(function(){
                 data: $(this).serialize()
             })
             .done(function (data) {
-                if (typeof data.message !== 'undefined' && typeof data.id !== 'undefined') {
-                    step++;
-                    printForm(step);
+                if (typeof data.message !== 'undefined' && typeof data.step !== 'undefined') {
+                    step = data.step;
+                    //if(step in [1, 2, 3]) {
+                        printForm(step, data);
+                    //}
                     localStorage['step'] = step;
+
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

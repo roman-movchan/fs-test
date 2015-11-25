@@ -69,9 +69,9 @@ class Person
     private $shoeSize;
 
     /**
-     * @ORM\OneToOne(targetEntity="PersonDetail")
+     * @ORM\OneToOne(targetEntity="PersonDetail", mappedBy="person")
      */
-    protected $personDetail;
+    private $personDetail;
 
     /**
      * Get id

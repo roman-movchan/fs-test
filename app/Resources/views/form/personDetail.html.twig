@@ -1,4 +1,4 @@
-<form method="POST" class="ajaxForm" action="{{path('person_detail')}}" {{ form_enctype(form) }}>
+<form method="POST" class="ajaxForm" action="{{path('person_detail', {'id':entity.id})}}" {{ form_enctype(form) }}>
     <div id="form_body">
         {% include ':form:formBody.html.twig' with {'form': form} %}
     </div>

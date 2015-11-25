@@ -22,17 +22,10 @@ class PersonDetail
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Person", inversedBy="detail")
+     * @ORM\OneToOne(targetEntity="Person", inversedBy="personDetail")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
-    protected $person;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="personId", type="integer", unique=true)
-     */
-    private $personId;
+    private $person;
 
     /**
      * @var string
@@ -78,30 +71,6 @@ class PersonDetail
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set personId
-     *
-     * @param integer $personId
-     *
-     * @return PersonDetail
-     */
-    public function setPersonId($personId)
-    {
-        $this->personId = $personId;
-
-        return $this;
-    }
-
-    /**
-     * Get personId
-     *
-     * @return int
-     */
-    public function getPersonId()
-    {
-        return $this->personId;
     }
 
     /**
@@ -223,5 +192,30 @@ class PersonDetail
     {
         return $this->superBrowl;
     }
-}
 
+
+
+    /**
+     * Set person
+     *
+     * @param \AppBundle\Entity\Person $person
+     *
+     * @return PersonDetail
+     */
+    public function setPerson(\AppBundle\Entity\Person $person = null)
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    /**
+     * Get person
+     *
+     * @return \AppBundle\Entity\Person
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+}
