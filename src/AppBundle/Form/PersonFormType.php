@@ -22,7 +22,7 @@ class PersonType extends AbstractType
             ->add('shoeSize')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

@@ -15,7 +15,7 @@ class PersonDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('personId', 'hidden')
+            ->add('person', 'hidden')
             ->add('iceCream')
             ->add('favSuperhero')
             ->add('favMovieStar')
@@ -23,7 +23,7 @@ class PersonDetailType extends AbstractType
             ->add('superBrowl')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -39,6 +39,6 @@ class PersonDetailType extends AbstractType
      */
     public function getName()
     {
-        return 'person_details_form';
+        return 'person_detail_form';
     }
 }
