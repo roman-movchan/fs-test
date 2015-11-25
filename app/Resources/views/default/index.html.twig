@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+    <div id="formBlock">
+        {% include ':form:personInfo.html.twig' with {'form': form} %}
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,7 @@
+<form method="POST" class="ajaxForm" action="{{path('person_create')}}" {{ form_enctype(form) }}>
+    <div id="form_body">
+        {% include ':form:formBody.html.twig' with {'form': form} %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
