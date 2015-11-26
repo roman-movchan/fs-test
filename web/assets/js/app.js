@@ -2,8 +2,6 @@ $(document).ready(function(){
     var count = localStorage['count'] != undefined ? localStorage['count'] : 3600;
     var step = localStorage['step'] != undefined ? localStorage['step'] : 1;
 
-    //var step= 1;
-    //alert(step);
     var counter = setInterval(timer, 100);
 
     printForm(step, []);
@@ -40,7 +38,7 @@ $(document).ready(function(){
             data.id = localStorage['id'];
             idParam = data.id != undefined ? '/id/'+data.id : '';
         }
-        console.log(localStorage);
+
         $.get('/step/'+step+idParam, function(data)
         {
             $('#formBlock').html(data.form);
@@ -63,9 +61,7 @@ $(document).ready(function(){
             .done(function (data) {
                 if (typeof data.message !== 'undefined' && typeof data.step !== 'undefined') {
                     step = data.step;
-                    //if(step in [1, 2, 3]) {
-                        printForm(step, data);
-                    //}
+                    printForm(step, data);
                     localStorage['step'] = step;
 
                 }

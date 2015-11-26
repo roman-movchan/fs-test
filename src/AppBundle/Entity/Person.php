@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Person
@@ -12,6 +13,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="person")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
  * @UniqueEntity("email")
+ * @JMS\ExclusionPolicy("all")
+ * @JMS\XmlRoot("person")
  */
 class Person
 {
@@ -21,6 +24,8 @@ class Person
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\XmlAttribute
+     * @JMS\Expose
      */
     private $id;
 
@@ -45,6 +50,8 @@ class Person
      *
      * @ORM\Column(name="email", type="string", length=100, unique=true)
      * @Assert\Email()
+     * @JMS\Expose
+     * @JMS\XmlElement(cdata=false)
      */
     private $email;
 
@@ -70,6 +77,7 @@ class Person
 
     /**
      * @ORM\OneToOne(targetEntity="PersonDetail", mappedBy="person")
+     * @JMS\Expose
      */
     private $personDetail;
 
@@ -256,5 +264,26 @@ class Person
     public function getIpAddress()
     {
         return $this->ipAddress;
+    }
+
+    /**
+     * @JMS\VirtualProperty
+     * @JMS\SerializedName("complete")
+     * @return bool
+     */
+    public function isComplete()
+    {
+        return $this->getPersonDetail() ? true : false;
+    }
+
+    /**
+     * @JMS\VirtualProperty
+     * @JMS\SerializedName("ip")
+     * @JMS\XmlElement(cdata=false)
+     * @return string
+     */
+    public function ipString()
+    {
+        return long2ip($this->getIpAddress());
     }
 }

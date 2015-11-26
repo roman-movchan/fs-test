@@ -13,8 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Form;
-use Symfony\Component\DomCrawler\Crawler;
-use Guzzle\Http\Client;
 
 class DefaultController extends Controller
 {
@@ -147,15 +145,11 @@ class DefaultController extends Controller
             return new JsonResponse(['message' => 'You can access this only using Ajax!'], 400);
         }
 
-        $client = new Client('http://gifbin.com/');
-        $request = $client->get('random');
-        $response = $request->send();
-        $crawler = new Crawler($response->getBody(true));
-        $res = $crawler->filter('form#share-form > fieldset')->eq('2')->filter('input')->attr('value');
+        $res = $this->container->get('result.image.manager')->getRandomImage();
+
         $response = new JsonResponse(
             [
                 'form' => $this->renderView('default/result.html.twig', ['img' => $res]),
-                //'step' => '4'
             ], 200);
 
         return $response;
