@@ -102,7 +102,7 @@ class XmlCommand extends ContainerAwareCommand
                         [
                             'taskName' => XmlCommand::TASK_NAME,
                             'time' => $timeFinished,
-                            'link' => $context->getHost()
+                            'link' => $context->getHost().'/'.XmlCommand::XML_PATH
                         ]
                     ),
                     'text/html'
