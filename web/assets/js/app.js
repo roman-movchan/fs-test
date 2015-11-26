@@ -1,16 +1,18 @@
-$(document).ready(function(){
+$(document).ready(function() {
     var count = localStorage['count'] != undefined ? localStorage['count'] : 3600;
     var step = localStorage['step'] != undefined ? localStorage['step'] : 1;
 
     var counter = setInterval(timer, 100);
 
-    printForm(step, []);
-
-    initAjaxForm();
+    if (count > 0) {
+        printForm(step, []);
+        initAjaxForm();
+    }
 
     $('.clearStorage').on('click', function (e) {
         localStorage.clear();
         clearInterval(counter);
+        location.reload();
     });
 
     function timer()
