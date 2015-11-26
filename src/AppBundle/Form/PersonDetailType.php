@@ -18,8 +18,12 @@ class PersonDetailType extends AbstractType
             ->add('iceCream')
             ->add('favSuperhero')
             ->add('favMovieStar')
-            ->add('worldEnd', 'datetime')
-            ->add('superBrowl')
+            ->add('worldEnd', 'date', [
+                    'input'  => 'datetime',
+                    'widget' => 'choice',
+                    'placeholder' => '',
+            ])
+            ->add('superBowl')
         ;
     }
 

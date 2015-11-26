@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ErrorLog;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\PersonDetail;
 use AppBundle\Form\PersonDetailType;
@@ -51,7 +52,7 @@ class DefaultController extends Controller
                     [
                         'message' => 'Success!',
                         'id' => $entity->getId(),
-                        'step' => 2
+                        'step' => 2 //next step
                     ], 200);
             }
         } else {
@@ -67,6 +68,7 @@ class DefaultController extends Controller
 
         $response = new JsonResponse(
             [
+                'message' => 'Error',
                 'form' => $this->renderView(':form:formBody.html.twig',
                     [
                         'entity' => $entity,
@@ -76,7 +78,6 @@ class DefaultController extends Controller
 
         return $response;
 
-        //return $this->processForm($form, $entity, $request);
     }
 
     /**
@@ -108,6 +109,18 @@ class DefaultController extends Controller
                         'message' => 'Success!',
                         'step' => 3
                     ], 200);
+            } else {
+                $em = $this->getDoctrine()->getManager();
+                $errors = $form->getErrors(true, false);
+
+                foreach($errors as $error) {
+                    $errorLog = new ErrorLog();
+                    $errorLog->setPerson($person);
+                    $errorLog->setTitle($error->current()->getOrigin()->getName().': '.$error->current()->getMessage());
+                    $em->persist($errorLog);
+                }
+                $em->flush();
+
             }
         } else {
             return $response = new JsonResponse(
@@ -122,6 +135,7 @@ class DefaultController extends Controller
 
         $response = new JsonResponse(
             [
+                'message' => 'Error',
                 'form' => $this->renderView(':form:formBody.html.twig',
                     [
                         'entity' => $entity,

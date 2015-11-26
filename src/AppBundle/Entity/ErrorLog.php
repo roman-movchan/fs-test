@@ -9,9 +9,8 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Person
  *
- * @ORM\Table(name="person")
+ * @ORM\Table(name="error_log")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ErrorLogRepository")
- * @UniqueEntity("email")
  * @JMS\ExclusionPolicy("all")
  * @JMS\XmlRoot("errors")
  */

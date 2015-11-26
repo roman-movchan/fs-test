@@ -18,7 +18,11 @@ class PersonType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('email')
-            ->add('birthday', 'datetime')
+            ->add('birthday', 'date', [
+                'input'  => 'datetime',
+                'widget' => 'choice',
+                'placeholder' => '',
+            ])
             ->add('shoeSize')
         ;
     }

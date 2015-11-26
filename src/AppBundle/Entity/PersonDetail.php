@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PersonDetail
@@ -30,37 +31,42 @@ class PersonDetail
     /**
      * @var string
      *
-     * @ORM\Column(name="iceCream", type="string", length=100)
+     * @ORM\Column(name="ice_cream", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $iceCream;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="favSuperhero", type="string", length=100)
+     * @ORM\Column(name="fav_superhero", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $favSuperhero;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="favMovieStar", type="string", length=100)
+     * @ORM\Column(name="fav_movie_star", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $favMovieStar;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="worldEnd", type="datetime")
+     * @ORM\Column(name="world_end", type="datetime")
+     * @Assert\NotBlank()
      */
     private $worldEnd;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="superBrowl", type="string", length=100)
+     * @ORM\Column(name="super_bowl", type="string", length=100)
+     * @Assert\NotBlank()
      */
-    private $superBrowl;
+    private $superBowl;
 
 
     /**
@@ -217,5 +223,29 @@ class PersonDetail
     public function getPerson()
     {
         return $this->person;
+    }
+
+    /**
+     * Set superBowl
+     *
+     * @param string $superBowl
+     *
+     * @return PersonDetail
+     */
+    public function setSuperBowl($superBowl)
+    {
+        $this->superBowl = $superBowl;
+
+        return $this;
+    }
+
+    /**
+     * Get superBowl
+     *
+     * @return string
+     */
+    public function getSuperBowl()
+    {
+        return $this->superBowl;
     }
 }
