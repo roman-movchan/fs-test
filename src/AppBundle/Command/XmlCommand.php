@@ -15,6 +15,7 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 class XmlCommand extends ContainerAwareCommand
 {
     const TASK_NAME = 'xml:generate';
+    const XML_PATH = 'api/stream';
 
     protected function configure()
     {
@@ -82,9 +83,15 @@ class XmlCommand extends ContainerAwareCommand
 
         }
 
+        $publicPath = $container->get('kernel')->getRootDir().'/../web/'.XmlCommand::XML_PATH;
+
+        $fs->copy($path, $publicPath);
+
         $timeFinished = new \DateTime();
 
         if($email) {
+            $context = $container->get('router')->getContext();
+
             $message = \Swift_Message::newInstance()
                 ->setSubject('Task finished')
                 ->setFrom('noreply@example.com')
@@ -94,7 +101,8 @@ class XmlCommand extends ContainerAwareCommand
                         'emails/xmlFinished.html.twig',
                         [
                             'taskName' => XmlCommand::TASK_NAME,
-                            'time' => $timeFinished
+                            'time' => $timeFinished,
+                            'link' => $context->getHost()
                         ]
                     ),
                     'text/html'
