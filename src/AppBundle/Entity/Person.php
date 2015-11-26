@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation as JMS;
+use Doctrine\Common\Collections as Collections;
 
 /**
  * Person
@@ -84,7 +85,19 @@ class Person
     /**
      * @ORM\Column(name="ip_address", type="bigint", nullable = TRUE)
      */
-    protected $ipAddress;
+    private $ipAddress;
+
+    /**
+     * @JMS\Expose
+     * @ORM\OneToMany(targetEntity="ErrorLog", mappedBy="person")
+     *
+     */
+    private $errors;
+
+    public function __construct()
+    {
+        $this->errors = new Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -285,5 +298,39 @@ class Person
     public function ipString()
     {
         return long2ip($this->getIpAddress());
+    }
+
+    /**
+     * Add error
+     *
+     * @param \AppBundle\Entity\ErrorLog $error
+     *
+     * @return Person
+     */
+    public function addError(\AppBundle\Entity\ErrorLog $error)
+    {
+        $this->errors[] = $error;
+
+        return $this;
+    }
+
+    /**
+     * Remove error
+     *
+     * @param \AppBundle\Entity\ErrorLog $error
+     */
+    public function removeError(\AppBundle\Entity\ErrorLog $error)
+    {
+        $this->errors->removeElement($error);
+    }
+
+    /**
+     * Get errors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }
