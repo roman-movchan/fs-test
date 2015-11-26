@@ -42,6 +42,10 @@ $(document).ready(function() {
             idParam = data.id != undefined ? '/id/'+data.id : '';
         }
 
+        if(step==3) {
+            clearInterval(counter);
+        }
+
         $.get('/step/'+step+idParam, function(data)
         {
             $('#formBlock').html(data.form);
