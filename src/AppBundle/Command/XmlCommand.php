@@ -94,7 +94,7 @@ class XmlCommand extends ContainerAwareCommand
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Task finished')
-                ->setFrom('noreply@example.com')
+                ->setFrom('noreply@'.$context->getHost())
                 ->setTo($email)
                 ->setBody(
                     $container->get('templating')->render(
