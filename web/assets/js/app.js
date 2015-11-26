@@ -19,11 +19,12 @@ $(document).ready(function(){
         {
             alert('time out!');
             clearInterval(counter);
+            $('#formBlock').remove();
             return;
         }
         count--;
         localStorage['count'] = count;
-        document.getElementById("timer").innerHTML=step+'---'+(count / 10).toFixed(1);
+        document.getElementById("timer").innerHTML=(count / 10).toFixed(1);
     }
 
     function printForm(step, data)
@@ -63,7 +64,6 @@ $(document).ready(function(){
                     step = data.step;
                     printForm(step, data);
                     localStorage['step'] = step;
-
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -71,9 +71,6 @@ $(document).ready(function(){
                     if (jqXHR.responseJSON.hasOwnProperty('form')) {
                         $('#form_body').html(jqXHR.responseJSON.form);
                     }
-
-                    $('.form_error').html(jqXHR.responseJSON.message);
-
                 } else {
                     alert(errorThrown);
                 }
