@@ -51,7 +51,7 @@ class XmlCommand extends ContainerAwareCommand
 
         $serializer = SerializerBuilder::create()->build();
 
-        //ищем XML для экспорта, если нет - создаем
+        //ищем файл XML для экспорта, если нет - создаем
         $fs = new Filesystem();
         $path = $container->get('kernel')->getRootDir().'/data/result.xml';
         if($fs->exists($path)) {
