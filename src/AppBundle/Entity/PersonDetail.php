@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * PersonDetail
  *
  * @ORM\Table(name="person_detail")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonDetailRepository")
+ * @JMS\ExclusionPolicy("all")
+ *
  */
 class PersonDetail
 {
@@ -33,6 +36,7 @@ class PersonDetail
      *
      * @ORM\Column(name="ice_cream", type="string", length=100)
      * @Assert\NotBlank()
+     * @JMS\Expose
      */
     private $iceCream;
 
@@ -41,6 +45,7 @@ class PersonDetail
      *
      * @ORM\Column(name="fav_superhero", type="string", length=100)
      * @Assert\NotBlank()
+     * @JMS\Expose
      */
     private $favSuperhero;
 
@@ -49,6 +54,7 @@ class PersonDetail
      *
      * @ORM\Column(name="fav_movie_star", type="string", length=100)
      * @Assert\NotBlank()
+     * @JMS\Expose
      */
     private $favMovieStar;
 
@@ -57,6 +63,7 @@ class PersonDetail
      *
      * @ORM\Column(name="world_end", type="datetime")
      * @Assert\NotBlank()
+     * @JMS\Expose
      */
     private $worldEnd;
 
@@ -65,6 +72,7 @@ class PersonDetail
      *
      * @ORM\Column(name="super_bowl", type="string", length=100)
      * @Assert\NotBlank()
+     * @JMS\Expose
      */
     private $superBowl;
 

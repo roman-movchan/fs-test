@@ -13,6 +13,7 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ErrorLogRepository")
  * @JMS\ExclusionPolicy("all")
  * @JMS\XmlRoot("errors")
+ * @JMS\ExclusionPolicy("all")
  */
 class ErrorLog
 {
@@ -30,6 +31,7 @@ class ErrorLog
      *
      * @ORM\Column(name="title", type="string", length=255)
      * @Assert\NotBlank
+     * @JMS\Expose
      */
     private $title;
 
