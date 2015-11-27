@@ -78,10 +78,9 @@ class XmlCommand extends ContainerAwareCommand
             $dom = dom_import_simplexml($target[0]);
             $insertDom = $dom->ownerDocument->importNode(dom_import_simplexml(new \SimpleXMLElement($serialized)), true);
             $dom->appendChild($insertDom);
-
-            $xml->asXML($path);
-
         }
+
+        $xml->asXML($path);
 
         $publicPath = $container->get('kernel')->getRootDir().'/../web/'.XmlCommand::XML_PATH;
 
